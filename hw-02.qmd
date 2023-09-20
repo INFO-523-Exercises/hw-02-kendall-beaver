@@ -6,7 +6,36 @@ editor: visual
 ---
 
 ```{r}
-test
+# Sets the number of significant figures to two - e.g., 0.01
+options(digits = 2)
 
+# Required package for quick package downloading and loading 
+if (!require(pacman))  
+  install.packages("pacman")
 
+# Downloads and load required packages
+pacman::p_load(dlookr, # Exploratory data analysis
+               forecast, # Needed for Box-Cox transformations
+               formattable, # HTML tables from R outputs
+               here, # Standardizes paths to data
+               kableExtra, # Alternative to formattable
+               knitr, # Needed to write HTML reports
+               missRanger, # To generate NAs
+               tidyverse) # Powerful data wrangling package suite
+
+# Let's load a data set from the diabetes data set
+dataset <- read.csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-07-25/scurvy.csv')
+
+#dataset <- read_csv(here('scurvy.csv'))
+
+# Add a categorical group
+mutate(Age_group = ifelse(Age >= 21 & Age <= 30, "Young", 
+                            ifelse(Age > 30 & Age <= 50, "Middle", 
+                                   "Elderly")),
+         Age_group = fct_rev(Age_group))
+
+# What does the data look like?
+dataset |>
+  head() |>
+  formattable()
 ```
