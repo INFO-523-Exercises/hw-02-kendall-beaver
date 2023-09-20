@@ -1,0 +1,10 @@
+---
+title: "hm-02"
+author: "Kendall Beaver"
+format: html
+editor: visual
+---
+
+```{r}
+test
+```
