@@ -1,0 +1,41 @@
+---
+title: "EDA-in-R-Book-Intro"
+author: "Kendall Beaver"
+format: html
+editor: visual
+---
+
+```{r}
+#https://arizona.figshare.com/articles/dataset/University_of_Arizona_Test-Trace-Treat_COVID-19_testing_results/14869740/3
+```
+
+```{r}
+
+# Sets the repository to download packages from
+options(repos = list(CRAN = "http://cran.rstudio.com/"))
+
+# Sets the number of significant figures to two - e.g., 0.01
+options(digits = 2)
+
+# Required package for quick package downloading and loading 
+install.packages("pacman")
+
+# Downloads and load required packages
+pacman::p_load(dlookr, # Exploratory data analysis
+               formattable, # HTML tables from R outputs
+               here, # Standardizes paths to data
+               kableExtra, # Alternative to formattable
+               knitr, # Needed to write HTML reports
+               missRanger, # To generate NAs
+               tidyverse) # Powerful data wrangling package suite
+
+# Let's load a data set from the COVID-19 daily testing data set
+dataset <- read.csv(here("EDA_In_R_Book", "data", "daily_summary.csv"))
+
+# What does the data look like?
+dataset |>
+  head() |>
+  formattable()
+
+
+```
