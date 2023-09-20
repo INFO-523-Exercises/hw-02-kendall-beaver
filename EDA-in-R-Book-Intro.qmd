@@ -30,6 +30,10 @@ pacman::p_load(dlookr, # Exploratory data analysis
                tidyverse) # Powerful data wrangling package suite
 
 # Let's load a data set from the COVID-19 daily testing data set
+dataset <- read.csv('C:/Users/ual-laptop/Documents/GitHub/hw-02-kendall-beaver/daily_summary.csv')
+
+dataset
+
 dataset <- read.csv(here("EDA_In_R_Book", "data", "daily_summary.csv"))
 
 # What does the data look like?
@@ -37,5 +41,8 @@ dataset |>
   head() |>
   formattable()
 
-
+# What are the properties of the data
+dataset |>
+  diagnose() |>
+  formattable()
 ```
