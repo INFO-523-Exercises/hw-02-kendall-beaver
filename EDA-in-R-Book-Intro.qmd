@@ -45,4 +45,9 @@ dataset |>
 dataset |>
   diagnose() |>
   formattable()
+
+# Table showing outliers
+diagnose_outlier(dataset) |>
+  filter(outliers_ratio > 0) |>
+  formattable()
 ```
