@@ -30,16 +30,10 @@ pacman::p_load(dlookr, # Exploratory data analysis
 
 #dataset <- read_csv(here('scurvy.csv'))
 
-dataset <- read_csv(here('age_gaps.csv'))
+#dataset <- read_csv(here('age_gaps.csv'))
 
-dataset |> mutate((age_difference = ifelse(age = 3, "Lovers),
-         #Age_group = fct_rev(Age_group))
-
-
-# What does the data look like?
-dataset |>
-  head() |>
-  formattable()
+dataset <- read_csv(here('population.csv'))
+### source: https://github.com/rfordatascience/tidytuesday/tree/master/data/2023/2023-08-22 ###
 
 dataset
 ```
