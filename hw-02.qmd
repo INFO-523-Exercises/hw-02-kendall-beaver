@@ -32,10 +32,8 @@ pacman::p_load(dlookr, # Exploratory data analysis
 
 dataset <- read_csv(here('age_gaps.csv'))
 
-dataset |> mutate(Age_group = ifelse(Age >= 21 & Age <= 30, "Young", 
-                            ifelse(Age > 30 & Age <= 50, "Middle", 
-                                   "Elderly")),
-         Age_group = fct_rev(Age_group))
+dataset |> mutate((age_difference = ifelse(age = 3, "Lovers),
+         #Age_group = fct_rev(Age_group))
 
 
 # What does the data look like?
