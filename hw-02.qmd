@@ -28,7 +28,9 @@ pacman::p_load(dlookr, # Exploratory data analysis
 
 #dataset <- read.csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-07-25/scurvy.csv')
 
-dataset <- read_csv(here('owid-energy.csv'))
+dataset <- read_csv(here('owid-energy.csv')) 
+brazil_dataset %>% dataset
+  filter(country == "Brazil")
 
 #dataset <- read_csv(here('daily_summary.csv'))
 
@@ -45,6 +47,9 @@ dataset |>
 
 dataset |>
   plot_normality()
+
+dataset %>%
+  
 
 dataset %>%
   group_by(country) %>%
