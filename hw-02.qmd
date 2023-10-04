@@ -30,12 +30,20 @@ pacman::p_load(dlookr, # Exploratory data analysis
 
 #dataset <- read_csv(here('scurvy.csv'))
 
-#dataset <- read_csv(here('age_gaps.csv'))
+dataset <- read_csv(here('daily_summary.csv'))
 
-dataset <- read_csv(here('population.csv'))
-### source: https://github.com/rfordatascience/tidytuesday/tree/master/data/2023/2023-08-22 ###
+# dataset <- read_csv(here('population.csv'))
+# source: https://github.com/rfordatascience/tidytuesday/tree/master/data/2023/2023-08-22 ###
 
-dataset |> ### This has 64,809 rows and 16 columns.
-  head() |>
-    formattable() ### This has 6 rows and 16 columns.
+dataset
+# |> This has 64,809 rows and 16 columns.
+#  head() |>
+#    formattable()
+
+# dataset |>
+#  select(refugees) |>
+#  formattable()
+
+# dataset |>
+#  plot_normality(refugees,asylum_seekers,idps)
 ```
