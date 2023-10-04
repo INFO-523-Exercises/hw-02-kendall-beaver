@@ -39,7 +39,8 @@ saudi_and_brazil <- dataset %>%
 #  filter(country %in% c("Brazil", "saudia arabia", "Panama")) %>%
 #  filter(country == "Brazil & Saudia Arabia" & year >= 1950)
   filter(iso_code %in% c("SAU", "BRA")) %>%
-  filter(year >= 1950)
+  filter(year >= 1950) %>%
+  select(country, iso_code, year, gdp, population, gas_production, oil_production)
   
 saudi_and_brazil
 
@@ -48,18 +49,18 @@ saudi_and_brazil
 # dataset <- read_csv(here('population.csv'))
 # source: https://github.com/rfordatascience/tidytuesday/tree/master/data/2023/2023-08-22 ###
 
-dataset |> 
+saudi_and_brazil |> 
   head() |>
     formattable()
 
-dataset |>
+saudi_and_brazil |>
   select(country) |>
   formattable()
 
-dataset |>
+saudi_and_brazil |>
   plot_normality()
 
-dataset %>%
+saudi_and_brazil %>%
   group_by(country) %>%
   select(population) %>%
   plot_normality()
