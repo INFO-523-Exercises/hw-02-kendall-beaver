@@ -75,7 +75,9 @@ saudi_and_brazil |>
 plot_normality(oil_production, gas_production)
 #qqnorm()
 
-saudi_and_brazil %>%
+saudi_and_brazil %>% #the following functions are meant for ordinal
+  # data, which the only piece of ordinal data I have is for "iso_code"
+  # which, actually, I need to use this to split up Brazil & SA.
   group_by(iso_code) %>%
   select(oil_production, gas_production) %>%
   plot_normality()
