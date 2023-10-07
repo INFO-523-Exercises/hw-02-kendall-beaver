@@ -74,4 +74,9 @@ saudi_and_brazil |>
 saudi_and_brazil |>
 plot_normality(oil_production, gas_production)
 #qqnorm()
+
+saudi_and_brazil %>%
+  group_by(iso_code) %>%
+  select(oil_production, gas_production) %>%
+  plot_normality()
 ```
