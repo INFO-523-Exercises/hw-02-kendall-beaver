@@ -64,4 +64,12 @@ saudi_and_brazil %>%
   group_by(country) %>%
   select(population) %>%
   plot_normality()
+
+saudi_and_brazil |>
+  select(oil_production, gas_production) |>
+  describe() |>
+  select(mean, skewness) |>
+  formattable()
+
+
 ```
