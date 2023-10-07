@@ -38,6 +38,7 @@ dataset <- read_csv(here('owid-energy.csv'))
 saudi_and_brazil <- dataset %>%
 #  filter(country %in% c("Brazil", "saudia arabia", "Panama")) %>%
 #  filter(country == "Brazil & Saudia Arabia" & year >= 1950)
+#  filter(iso_code %in% c("SAU")) %>%
   filter(iso_code %in% c("SAU", "BRA")) %>%
   filter(year >= 1950) %>%
   select(country, iso_code, year, gdp, population, gas_production, oil_production)
@@ -68,7 +69,7 @@ saudi_and_brazil %>%
 saudi_and_brazil |>
   select(oil_production, gas_production) |>
   describe() |>
-  select(mean, IQR, skewness) |> #there is no describe_variables category
+  select(described_variables, mean, IQR, skewness) |>
   formattable()
 
 saudi_and_brazil |>
@@ -78,6 +79,7 @@ plot_normality(oil_production, gas_production)
 saudi_and_brazil %>% #the following functions are meant for ordinal
   # data, which the only piece of ordinal data I have is for "iso_code"
   # which, actually, I need to use this to split up Brazil & SA.
+  # THIS IS IMPORTANT FOR WHAT I'M DOING, WHEN COMPARING 2 COUNTRIES.
   group_by(iso_code) %>%
   select(oil_production, gas_production) %>%
   plot_normality()
