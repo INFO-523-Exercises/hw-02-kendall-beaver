@@ -71,16 +71,26 @@ saudi_and_brazil |>
   describe() |>
   select(described_variables, mean, IQR, skewness) |>
   formattable()
+# Gas production is skewed more to the right (1.78) 
+# than oil production (0.75).
 
 saudi_and_brazil |>
 plot_normality(oil_production, gas_production)
-#qqnorm()
+# This is good if I can create two datasets for Brazil and S.A. and
+# run them seperately and then quickly look at visual representations
+# for GDP, oil and gas production, etc., then quickly make a comparison
+# between the two countries then go further in-depth and perform
+# additional analysis.
 
-saudi_and_brazil %>% #the following functions are meant for ordinal
-  # data, which the only piece of ordinal data I have is for "iso_code"
-  # which, actually, I need to use this to split up Brazil & SA.
-  # THIS IS IMPORTANT FOR WHAT I'M DOING, WHEN COMPARING 2 COUNTRIES.
+saudi_and_brazil %>% 
+  # This "group_by" function below works better for me!!!
+  # So, group_by is meant more so for ordinaldata, which the only 
+  # piece of ordinal data I have is for "iso_code." But it would be better
+  # for me to use the "group_by" because I can simply up Brazil & S.A.
+  # without having to create two separate datasets and then run
+  # plot_normality.
   group_by(iso_code) %>%
   select(oil_production, gas_production) %>%
   plot_normality()
+
 ```
