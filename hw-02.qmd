@@ -29,7 +29,7 @@ pacman::p_load(dlookr, # Exploratory data analysis
 #dataset <- read.csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-07-25/scurvy.csv')
 
 dataset <- read_csv(here('owid-energy.csv'))
-
+#dataset
 #brazil_dataset <- dataset %>%
 #  filter(country == "Brazil")
 
@@ -68,8 +68,10 @@ saudi_and_brazil %>%
 saudi_and_brazil |>
   select(oil_production, gas_production) |>
   describe() |>
-  select(mean, skewness) |>
+  select(mean, IQR, skewness) |> #there is no describe_variables category
   formattable()
 
-
+saudi_and_brazil |>
+plot_normality(oil_production, gas_production)
+#qqnorm()
 ```
