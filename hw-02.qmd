@@ -40,7 +40,7 @@ saudi_and_brazil <- dataset %>%
 #  filter(country == "Brazil & Saudia Arabia" & year >= 1950)
 #  filter(iso_code %in% c("SAU")) %>%
   filter(iso_code %in% c("SAU", "BRA")) %>%
-  filter(year >= 1950) %>%
+#  filter(year >= 1950) %>%
   select(country, iso_code, year, gdp, population, gas_production, oil_production)
   
 saudi_and_brazil
@@ -92,5 +92,16 @@ saudi_and_brazil %>%
   group_by(iso_code) %>%
   select(oil_production, gas_production) %>%
   plot_normality()
+
+filtered_column <- saudi_and_brazil |>
+  filter(oil_production > 0)
+filtered_column
+# This is a quick way to just filtered all the data based on one column,
+# in this case, oil_prodution, which I'm telling R to show me all data
+# > 0 for oil_production, which begins in 1942 for Brazil and 1936 for
+# S.A., which makes me wonder if WWII had anything to do with Brazil 
+# beginning its production of oil and if so, who was Brazil supplying
+# oil to?
+
 
 ```
