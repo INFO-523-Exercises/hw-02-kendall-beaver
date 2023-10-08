@@ -39,17 +39,19 @@ saudi_and_brazil <- dataset %>%
 #  filter(country %in% c("Brazil", "saudia arabia", "Panama")) %>%
 #  filter(country == "Brazil & Saudia Arabia" & year >= 1950)
 #  filter(iso_code %in% c("SAU")) %>%
-  filter(iso_code %in% c("BRA")) %>%  
-#  filter(iso_code %in% c("SAU", "BRA")) %>%
+#  filter(iso_code %in% c("BRA")) %>%  
+  filter(iso_code %in% c("SAU", "BRA")) %>%
 #  filter(year >= 1950) %>%
   select(country, iso_code, year, gdp, population, gas_production, oil_production)
   
 saudi_and_brazil
 
-#dataset <- read_csv(here('daily_summary.csv'))
-
+# Other datasets I considered performing EDA on:
+#
+# dataset <- read_csv(here('daily_summary.csv'))
 # dataset <- read_csv(here('population.csv'))
-# source: https://github.com/rfordatascience/tidytuesday/tree/master/data/2023/2023-08-22 ###
+#
+# source for all csv data: https://github.com/rfordatascience/tidytuesday/tree/master/data/2023/2023-08-22 ###
 
 saudi_and_brazil |> 
   head() |>
@@ -119,21 +121,24 @@ saudi_and_brazil <- dataset %>%
   filter(iso_code %in% c("SAU"))
 saudi_and_brazil
 
-sqrt_prod_data <- transform(saudi_and_brazil$oil_production, method = "sqrt")
+sqrt_prod_data <- 
+  transform(saudi_and_brazil$oil_production, method = "sqrt")
 # sqrtIns <- transform(saudi_and_brazil$gas_production, method = "sqrt")
 summary(sqrt_prod_data)
 
 sqrt_prod_data |>
   plot()
 
-Log1_prod_data <- transform(saudi_and_brazil$oil_production, method = "log+1")
+Log1_prod_data <- 
+  transform(saudi_and_brazil$oil_production, method = "log+1")
 summary(Log1_prod_data)
 
 # This is for “1/x”: inverse transformation. 1/x, the severe skew,
 # which produces values of infinity and therefore doesn't produce
 # a plot for my variable Inv_prod_data.
 
-Inv_prod_data <- transform(saudi_and_brazil$oil_production, method = "1/x")
+Inv_prod_data <- 
+  transform(saudi_and_brazil$oil_production, method = "1/x")
 summary(Inv_prod_data)
 
 Inv_prod_data |>
@@ -141,7 +146,8 @@ Inv_prod_data |>
 
 # This is for “x^2”: squared transformation.
 
-Sqrd_prod_data <- transform(saudi_and_brazil$oil_production, method = "x^2") 
+Sqrd_prod_data <- 
+  transform(saudi_and_brazil$oil_production, method = "x^2") 
 summary(Sqrd_prod_data)
 
 Sqrd_prod_data |>
@@ -149,11 +155,24 @@ Sqrd_prod_data |>
 
 # This is for "x^3": cubed transformation.
 
-Cube_prod_data <- transform(saudi_and_brazil$oil_production, method = "x^3") 
+Cube_prod_data <- 
+  transform(saudi_and_brazil$oil_production, method = "x^3") 
 summary(Cube_prod_data)
 
 Cube_prod_data |>
   plot()
 
+# This is for the Box-Cox transformation:
 
+BoxCox_prod_data <- 
+  transform(saudi_and_brazil$oil_production, method = "Box-Cox")
+summary(BoxCox_prod_data)
+
+BoxCox_prod_data |>
+  plot()
+
+# This function/code doesn't work so I'm not going to hide it:
+#
+# transformation_web_report(saudi_and_brazil)
+# transformation_web_report(dataset)
 ```
