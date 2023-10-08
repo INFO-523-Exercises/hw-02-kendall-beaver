@@ -39,7 +39,8 @@ saudi_and_brazil <- dataset %>%
 #  filter(country %in% c("Brazil", "saudia arabia", "Panama")) %>%
 #  filter(country == "Brazil & Saudia Arabia" & year >= 1950)
 #  filter(iso_code %in% c("SAU")) %>%
-  filter(iso_code %in% c("SAU", "BRA")) %>%
+  filter(iso_code %in% c("BRA")) %>%  
+#  filter(iso_code %in% c("SAU", "BRA")) %>%
 #  filter(year >= 1950) %>%
   select(country, iso_code, year, gdp, population, gas_production, oil_production)
   
@@ -102,16 +103,15 @@ filtered_column
 # S.A., which makes me wonder if WWII had anything to do with Brazil 
 # beginning its production of oil and if so, who was Brazil supplying
 # oil to?
-----------
-# I'm going to change my dataset to just include Saudi Arabia.
 
-new_data <- dataset %>%
-#  filter(iso_code %in% c("SAU")) %>%
-  filter(iso_code %in% c("SAU", "BRA")) %>%
-new_data
+# I'm re-adding the function for saudi_and_brazil so that I can toggle
+# between displaying data for SAU and BRA.
 
-saudi_and_brazil |>
-  select(country=="brazil") |>
-  sqrtIns <- transform(saudi_and_brazil$gas_production, method = "sqrt")
+saudi_and_brazil <- dataset %>%
+  filter(iso_code %in% c("SAU"))
+saudi_and_brazil
+
+# sqrtIns <- transform(saudi_and_brazil$oil_production, method = "sqrt")
+sqrtIns <- transform(saudi_and_brazil$gas_production, method = "sqrt")
 summary(sqrtIns)
 ```
