@@ -11,6 +11,11 @@ editor: visual
 # PART I: Transforming like a Data... Transformer
 ##############################################################
 
+##############################################################
+# If I want to make the oil_production more discrete then I 
+# wonder if there's a way to convert this into barrels of oil...
+##############################################################
+
 # Sets the number of significant figures to two - e.g., 0.01
 options(digits = 2)
 
