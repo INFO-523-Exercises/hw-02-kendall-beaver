@@ -119,13 +119,16 @@ saudi_and_brazil <- dataset %>%
   filter(iso_code %in% c("SAU"))
 saudi_and_brazil
 
-sqrtIns <- transform(saudi_and_brazil$oil_production, method = "sqrt")
+sqrt_prod_data <- transform(saudi_and_brazil$oil_production, method = "sqrt")
 # sqrtIns <- transform(saudi_and_brazil$gas_production, method = "sqrt")
-summary(sqrtIns)
+summary(sqrt_prod_data)
 
-sqrtIns |>
+sqrt_prod_data |>
   plot()
 
-Log1Ins <- transform(saudi_and_brazil$oil_production, method = "log+1")
-summary(Log1Ins)
+Log1_prod_data <- transform(saudi_and_brazil$oil_production, method = "log+1")
+summary(Log1_prod_data)
+
+Inv_prod_data <- transform(saudi_and_brazil$oil_production, method = "1/x")
+summary(Inv_prod_data)
 ```

@@ -119,33 +119,1118 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>               kableExtra, <span class="co"># Alternative to formattable</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>               knitr, <span class="co"># Needed to write HTML reports</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>               missRanger, <span class="co"># To generate NAs</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>               tidyverse) <span class="co"># Powerful data wrangling package suite</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>               tidyverse) <span class="co"># Powerful data wrangling package suite</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's load a data set from the diabetes data set</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># An easy way</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#dataset &lt;- read.csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-07-25/scurvy.csv')</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">'owid-energy.csv'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Installing package into 'C:/Users/ual-laptop/AppData/Local/R/win-library/4.3'
-(as 'lib' is unspecified)</code></pre>
+<pre><code>Rows: 21890 Columns: 129</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>also installing the dependencies 'quadprog', 'fracdiff', 'lmtest', 'tseries', 'urca', 'RcppArmadillo'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: unable to access index for repository http://www.stats.ox.ac.uk/pub/RWin/bin/windows/contrib/4.3:
-  cannot open URL 'http://www.stats.ox.ac.uk/pub/RWin/bin/windows/contrib/4.3/PACKAGES'</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>package 'quadprog' successfully unpacked and MD5 sums checked
-package 'fracdiff' successfully unpacked and MD5 sums checked
-package 'lmtest' successfully unpacked and MD5 sums checked
-package 'tseries' successfully unpacked and MD5 sums checked
-package 'urca' successfully unpacked and MD5 sums checked
-package 'RcppArmadillo' successfully unpacked and MD5 sums checked
-package 'forecast' successfully unpacked and MD5 sums checked
+<pre><code>── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr   (2): country, iso_code
+dbl (127): year, population, gdp, biofuel_cons_change_pct, biofuel_cons_chan...
 
-The downloaded binary packages are in
-    C:\Users\ual-laptop\AppData\Local\Temp\RtmpEnoq3o\downloaded_packages</code></pre>
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dataset</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#brazil_dataset &lt;- dataset %&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(country == "Brazil")</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#brazil_dataset</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>saudi_and_brazil <span class="ot">&lt;-</span> dataset <span class="sc">%&gt;%</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(country %in% c("Brazil", "saudia arabia", "Panama")) %&gt;%</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(country == "Brazil &amp; Saudia Arabia" &amp; year &gt;= 1950)</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(iso_code %in% c("SAU")) %&gt;%</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(iso_code <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BRA"</span>)) <span class="sc">%&gt;%</span>  </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(iso_code %in% c("SAU", "BRA")) %&gt;%</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(year &gt;= 1950) %&gt;%</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, iso_code, year, gdp, population, gas_production, oil_production)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>saudi_and_brazil</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 122 × 7
+   country iso_code  year         gdp population gas_production oil_production
+   &lt;chr&gt;   &lt;chr&gt;    &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;
+ 1 Brazil  BRA       1900 15718016000   18063384              0              0
+ 2 Brazil  BRA       1901 17288480768   18469004              0              0
+ 3 Brazil  BRA       1902 17298221056   18874521              0              0
+ 4 Brazil  BRA       1903 17645600768   19279718              0              0
+ 5 Brazil  BRA       1904 17980866560   19693613              0              0
+ 6 Brazil  BRA       1905 18502774784   20116394              0              0
+ 7 Brazil  BRA       1906 20284010496   20548251              0              0
+ 8 Brazil  BRA       1907 20275920896   20989379              0              0
+ 9 Brazil  BRA       1908 20131334144   21439977              0              0
+10 Brazil  BRA       1909 21732245504   21899583              0              0
+# ℹ 112 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dataset &lt;- read_csv(here('daily_summary.csv'))</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># dataset &lt;- read_csv(here('population.csv'))</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># source: https://github.com/rfordatascience/tidytuesday/tree/master/data/2023/2023-08-22 </span><span class="al">###</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>saudi_and_brazil <span class="sc">|&gt;</span> </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>() <span class="sc">|&gt;</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">formattable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class="table table-condensed">
+<thead>
+<tr>
+<th style="text-align:right;">
+country
+</th>
+<th style="text-align:right;">
+iso_code
+</th>
+<th style="text-align:right;">
+year
+</th>
+<th style="text-align:right;">
+gdp
+</th>
+<th style="text-align:right;">
+population
+</th>
+<th style="text-align:right;">
+gas_production
+</th>
+<th style="text-align:right;">
+oil_production
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+<td style="text-align:right;">
+BRA
+</td>
+<td style="text-align:right;">
+1900
+</td>
+<td style="text-align:right;">
+1.6e+10
+</td>
+<td style="text-align:right;">
+1.8e+07
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+<td style="text-align:right;">
+BRA
+</td>
+<td style="text-align:right;">
+1901
+</td>
+<td style="text-align:right;">
+1.7e+10
+</td>
+<td style="text-align:right;">
+1.8e+07
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+<td style="text-align:right;">
+BRA
+</td>
+<td style="text-align:right;">
+1902
+</td>
+<td style="text-align:right;">
+1.7e+10
+</td>
+<td style="text-align:right;">
+1.9e+07
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+<td style="text-align:right;">
+BRA
+</td>
+<td style="text-align:right;">
+1903
+</td>
+<td style="text-align:right;">
+1.8e+10
+</td>
+<td style="text-align:right;">
+1.9e+07
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+<td style="text-align:right;">
+BRA
+</td>
+<td style="text-align:right;">
+1904
+</td>
+<td style="text-align:right;">
+1.8e+10
+</td>
+<td style="text-align:right;">
+2.0e+07
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+<td style="text-align:right;">
+BRA
+</td>
+<td style="text-align:right;">
+1905
+</td>
+<td style="text-align:right;">
+1.9e+10
+</td>
+<td style="text-align:right;">
+2.0e+07
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+
+</table>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>saudi_and_brazil <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">formattable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class="table table-condensed">
+<thead>
+<tr>
+<th style="text-align:right;">
+country
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Brazil
+</td>
+</tr>
+</tbody>
+
+</table>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>saudi_and_brazil <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_normality</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="hw-02_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="hw-02_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="hw-02_files/figure-html/unnamed-chunk-1-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="hw-02_files/figure-html/unnamed-chunk-1-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="hw-02_files/figure-html/unnamed-chunk-1-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>saudi_and_brazil <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(population) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_normality</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>
-forecast installed</code></pre>
+<pre><code>Adding missing grouping variables: `country`</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="hw-02_files/figure-html/unnamed-chunk-1-6.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>saudi_and_brazil <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(oil_production, gas_production) <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">describe</span>() <span class="sc">|&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(described_variables, mean, IQR, skewness) <span class="sc">|&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">formattable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class="table table-condensed">
+<thead>
+<tr>
+<th style="text-align:right;">
+described_variables
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+IQR
+</th>
+<th style="text-align:right;">
+skewness
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+oil_production
+</td>
+<td style="text-align:right;">
+310
+</td>
+<td style="text-align:right;">
+396
+</td>
+<td style="text-align:right;">
+1.7
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+gas_production
+</td>
+<td style="text-align:right;">
+38
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+2.1
+</td>
+</tr>
+</tbody>
+
+</table>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gas production is skewed more to the right (1.78) </span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># than oil production (0.75).</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>saudi_and_brazil <span class="sc">|&gt;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_normality</span>(oil_production, gas_production)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="hw-02_files/figure-html/unnamed-chunk-1-7.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="hw-02_files/figure-html/unnamed-chunk-1-8.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is good if I can create two datasets for Brazil and S.A. and</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># run them seperately and then quickly look at visual representations</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># for GDP, oil and gas production, etc., then quickly make a comparison</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># between the two countries then go further in-depth and perform</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># additional analysis.</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>saudi_and_brazil <span class="sc">%&gt;%</span> </span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># This "group_by" function below works better for me!!!</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># So, group_by is meant more so for ordinaldata, which the only </span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># piece of ordinal data I have is for "iso_code." But it would be better</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># for me to use the "group_by" because I can simply up Brazil &amp; S.A.</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># without having to create two separate datasets and then run</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot_normality.</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(iso_code) <span class="sc">%&gt;%</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(oil_production, gas_production) <span class="sc">%&gt;%</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_normality</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Adding missing grouping variables: `iso_code`</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="hw-02_files/figure-html/unnamed-chunk-1-9.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="hw-02_files/figure-html/unnamed-chunk-1-10.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>filtered_column <span class="ot">&lt;-</span> saudi_and_brazil <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(oil_production <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>filtered_column</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 80 × 7
+   country iso_code  year          gdp population gas_production oil_production
+   &lt;chr&gt;   &lt;chr&gt;    &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;
+ 1 Brazil  BRA       1942  68221296640   43672675          0              0.047
+ 2 Brazil  BRA       1943  77735960576   44833224          0              0.07 
+ 3 Brazil  BRA       1944  80576684032   46024612          0              0.093
+ 4 Brazil  BRA       1945  82817277952   47247661          0              0.116
+ 5 Brazil  BRA       1946  91503345664   48503211          0.104          0.105
+ 6 Brazil  BRA       1947  94744731648   49792125          0.012          0.151
+ 7 Brazil  BRA       1948 103941000000   51115291          0.035          0.221
+ 8 Brazil  BRA       1949 111895000000   52508525          0.058          0.163
+ 9 Brazil  BRA       1950 119499000000   53955360          0.058          0.512
+10 Brazil  BRA       1951 125335000000   55591060          0.093          1.05 
+# ℹ 70 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a quick way to just filtered all the data based on one column,</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># in this case, oil_prodution, which I'm telling R to show me all data</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># &gt; 0 for oil_production, which begins in 1942 for Brazil and 1936 for</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># S.A., which makes me wonder if WWII had anything to do with Brazil </span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># beginning its production of oil and if so, who was Brazil supplying</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># oil to?</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="do">######################################################################</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co"># The next EDA exercises will have us look at:</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   sqrt</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   log+1 </span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   1/x (inverse)</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   x^2</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="co">#   x^3</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="co"># I'm re-adding the function for saudi_and_brazil so that I can toggle</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co"># between displaying data for SAU and BRA.</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>saudi_and_brazil <span class="ot">&lt;-</span> dataset <span class="sc">%&gt;%</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(iso_code <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"SAU"</span>))</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>saudi_and_brazil</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 122 × 129
+   country       year iso_code population   gdp biofuel_cons_change_pct
+   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;                   &lt;dbl&gt;
+ 1 Saudi Arabia  1900 SAU         2138769    NA                      NA
+ 2 Saudi Arabia  1901 SAU         2142066    NA                      NA
+ 3 Saudi Arabia  1902 SAU         2147298    NA                      NA
+ 4 Saudi Arabia  1903 SAU         2154462    NA                      NA
+ 5 Saudi Arabia  1904 SAU         2161623    NA                      NA
+ 6 Saudi Arabia  1905 SAU         2168782    NA                      NA
+ 7 Saudi Arabia  1906 SAU         2175938    NA                      NA
+ 8 Saudi Arabia  1907 SAU         2183091    NA                      NA
+ 9 Saudi Arabia  1908 SAU         2190240    NA                      NA
+10 Saudi Arabia  1909 SAU         2198435    NA                      NA
+# ℹ 112 more rows
+# ℹ 123 more variables: biofuel_cons_change_twh &lt;dbl&gt;,
+#   biofuel_cons_per_capita &lt;dbl&gt;, biofuel_consumption &lt;dbl&gt;,
+#   biofuel_elec_per_capita &lt;dbl&gt;, biofuel_electricity &lt;dbl&gt;,
+#   biofuel_share_elec &lt;dbl&gt;, biofuel_share_energy &lt;dbl&gt;,
+#   carbon_intensity_elec &lt;dbl&gt;, coal_cons_change_pct &lt;dbl&gt;,
+#   coal_cons_change_twh &lt;dbl&gt;, coal_cons_per_capita &lt;dbl&gt;, …</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>sqrt_prod_data <span class="ot">&lt;-</span> <span class="fu">transform</span>(saudi_and_brazil<span class="sc">$</span>oil_production, <span class="at">method =</span> <span class="st">"sqrt"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># sqrtIns &lt;- transform(saudi_and_brazil$gas_production, method = "sqrt")</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sqrt_prod_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>* Resolving Skewness with sqrt
+
+* Information of Transformation (before vs after)
+         Original Transformation
+n         122.000         122.00
+na          0.000           0.00
+mean     2265.775          35.11
+sd       2496.068          32.28
+se_mean   225.983           2.92
+IQR      5010.889          70.79
+skewness    0.522           0.16
+kurtosis   -1.458          -1.70
+p00         0.000           0.00
+p01         0.000           0.00
+p05         0.000           0.00
+p10         0.000           0.00
+p20         0.000           0.00
+p25         0.000           0.00
+p30         0.044           0.20
+p40       241.234          15.51
+p50       802.243          28.31
+p60      2522.144          50.22
+p70      4686.705          68.46
+p75      5010.889          70.79
+p80      5133.081          71.65
+p90      5930.801          77.01
+p95      6321.522          79.51
+p99      6686.937          81.77
+p100     6823.463          82.60</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>sqrt_prod_data <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="hw-02_files/figure-html/unnamed-chunk-1-11.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>Log1_prod_data <span class="ot">&lt;-</span> <span class="fu">transform</span>(saudi_and_brazil<span class="sc">$</span>oil_production, <span class="at">method =</span> <span class="st">"log+1"</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Log1_prod_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>* Resolving Skewness with log+1
+
+* Information of Transformation (before vs after)
+         Original Transformation
+n         122.000        122.000
+na          0.000          0.000
+mean     2265.775          5.013
+sd       2496.068          3.759
+se_mean   225.983          0.340
+IQR      5010.889          8.520
+skewness    0.522         -0.427
+kurtosis   -1.458         -1.654
+p00         0.000          0.000
+p01         0.000          0.000
+p05         0.000          0.000
+p10         0.000          0.000
+p20         0.000          0.000
+p25         0.000          0.000
+p30         0.044          0.043
+p40       241.234          5.485
+p50       802.243          6.687
+p60      2522.144          7.833
+p70      4686.705          8.452
+p75      5010.889          8.520
+p80      5133.081          8.544
+p90      5930.801          8.688
+p95      6321.522          8.752
+p99      6686.937          8.808
+p100     6823.463          8.828</code></pre>
 </div>
 </div>
 
