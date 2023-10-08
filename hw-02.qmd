@@ -129,6 +129,31 @@ sqrt_prod_data |>
 Log1_prod_data <- transform(saudi_and_brazil$oil_production, method = "log+1")
 summary(Log1_prod_data)
 
+# This is for “1/x”: inverse transformation. 1/x, the severe skew,
+# which produces values of infinity and therefore doesn't produce
+# a plot for my variable Inv_prod_data.
+
 Inv_prod_data <- transform(saudi_and_brazil$oil_production, method = "1/x")
 summary(Inv_prod_data)
+
+Inv_prod_data |>
+  plot()
+
+# This is for “x^2”: squared transformation.
+
+Sqrd_prod_data <- transform(saudi_and_brazil$oil_production, method = "x^2") 
+summary(Sqrd_prod_data)
+
+Sqrd_prod_data |>
+  plot()
+
+# This is for "x^3": cubed transformation.
+
+Cube_prod_data <- transform(saudi_and_brazil$oil_production, method = "x^3") 
+summary(Cube_prod_data)
+
+Cube_prod_data |>
+  plot()
+
+
 ```

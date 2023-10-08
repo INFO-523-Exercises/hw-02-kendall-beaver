@@ -128,7 +128,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">'owid-energy.csv'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 21890 Columns: 129</code></pre>
+<pre><code>Rows: 21891 Columns: 129</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Column specification ────────────────────────────────────────────────────────
@@ -1232,6 +1232,119 @@ p95      6321.522          8.752
 p99      6686.937          8.808
 p100     6823.463          8.828</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is for “1/x”: inverse transformation. 1/x, the severe skew,</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># which produces values of infinity and therefore doesn't produce</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># a plot for my variable Inv_prod_data.</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>Inv_prod_data <span class="ot">&lt;-</span> <span class="fu">transform</span>(saudi_and_brazil<span class="sc">$</span>oil_production, <span class="at">method =</span> <span class="st">"1/x"</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Inv_prod_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>* Resolving Skewness with 1/x
+
+* Information of Transformation (before vs after)
+         Original Transformation
+n         122.000        1.2e+02
+na          0.000        0.0e+00
+mean     2265.775            Inf
+sd       2496.068            NaN
+se_mean   225.983            NaN
+IQR      5010.889            Inf
+skewness    0.522            NaN
+kurtosis   -1.458            NaN
+p00         0.000        1.5e-04
+p01         0.000        1.5e-04
+p05         0.000        1.6e-04
+p10         0.000        1.7e-04
+p20         0.000        1.9e-04
+p25         0.000        2.0e-04
+p30         0.044        2.1e-04
+p40       241.234        4.0e-04
+p50       802.243        1.3e-03
+p60      2522.144        4.2e-03
+p70      4686.705        3.4e+01
+p75      5010.889            Inf
+p80      5133.081            Inf
+p90      5930.801            Inf
+p95      6321.522            Inf
+p99      6686.937            Inf
+p100     6823.463            Inf</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>Inv_prod_data <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="hw-02_files/figure-html/unnamed-chunk-1-12.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is for “x^2”: squared transformation.</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>Sqrd_prod_data <span class="ot">&lt;-</span> <span class="fu">transform</span>(saudi_and_brazil<span class="sc">$</span>oil_production, <span class="at">method =</span> <span class="st">"x^2"</span>) </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Sqrd_prod_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>* Resolving Skewness with x^2
+
+* Information of Transformation (before vs after)
+         Original Transformation
+n         122.000        1.2e+02
+na          0.000        0.0e+00
+mean     2265.775        1.1e+07
+sd       2496.068        1.5e+07
+se_mean   225.983        1.3e+06
+IQR      5010.889        2.5e+07
+skewness    0.522        9.1e-01
+kurtosis   -1.458       -7.4e-01
+p00         0.000        0.0e+00
+p01         0.000        0.0e+00
+p05         0.000        0.0e+00
+p10         0.000        0.0e+00
+p20         0.000        0.0e+00
+p25         0.000        0.0e+00
+p30         0.044        3.0e-03
+p40       241.234        5.9e+04
+p50       802.243        6.5e+05
+p60      2522.144        6.4e+06
+p70      4686.705        2.2e+07
+p75      5010.889        2.5e+07
+p80      5133.081        2.6e+07
+p90      5930.801        3.5e+07
+p95      6321.522        4.0e+07
+p99      6686.937        4.5e+07
+p100     6823.463        4.7e+07</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>Cube_prod_data <span class="ot">&lt;-</span> <span class="fu">transform</span>(saudi_and_brazil<span class="sc">$</span>oil_production, <span class="at">method =</span> <span class="st">"x^3"</span>) </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Cube_prod_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>* Resolving Skewness with x^3
+
+* Information of Transformation (before vs after)
+         Original Transformation
+n         122.000        1.2e+02
+na          0.000        0.0e+00
+mean     2265.775        6.2e+10
+sd       2496.068        9.0e+10
+se_mean   225.983        8.1e+09
+IQR      5010.889        1.3e+11
+skewness    0.522        1.2e+00
+kurtosis   -1.458        2.2e-01
+p00         0.000        0.0e+00
+p01         0.000        0.0e+00
+p05         0.000        0.0e+00
+p10         0.000        0.0e+00
+p20         0.000        0.0e+00
+p25         0.000        0.0e+00
+p30         0.044        2.5e-04
+p40       241.234        1.4e+07
+p50       802.243        5.2e+08
+p60      2522.144        1.6e+10
+p70      4686.705        1.0e+11
+p75      5010.889        1.3e+11
+p80      5133.081        1.4e+11
+p90      5930.801        2.1e+11
+p95      6321.522        2.5e+11
+p99      6686.937        3.0e+11
+p100     6823.463        3.2e+11</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is for "x^3": cubed transformation.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 </main>
