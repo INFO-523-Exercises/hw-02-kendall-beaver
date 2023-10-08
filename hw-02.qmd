@@ -6,6 +6,11 @@ editor: visual
 ---
 
 ```{r}
+
+##############################################################
+# PART I: Transforming like a Data... Transformer
+##############################################################
+
 # Sets the number of significant figures to two - e.g., 0.01
 options(digits = 2)
 
@@ -175,4 +180,27 @@ BoxCox_prod_data |>
 #
 # transformation_web_report(saudi_and_brazil)
 # transformation_web_report(dataset)
+
+##############################################################
+# PART II: Imputing like a Data Scientist
+##############################################################
+
+# I could create a categorical group based on the data in the
+# GDP or population column, something along the lines of:
+#
+#   1.) Very Wealthy
+#   2.) Middle-class
+#   3.) Poor
+
+
+saudi_and_brazil |>
+  # Add a categorical group
+  mutate(Wealth_of_country = ifelse(Age >= 21 & Age <= 30, "Young", 
+                            ifelse(Age > 30 & Age <= 50, "Middle", 
+                                   "Elderly")),
+         Age_group = fct_rev(Age_group))
+
+dataset |>
+  head() |>
+  formattable()
 ```
