@@ -102,6 +102,16 @@ filtered_column
 # S.A., which makes me wonder if WWII had anything to do with Brazil 
 # beginning its production of oil and if so, who was Brazil supplying
 # oil to?
+----------
+# I'm going to change my dataset to just include Saudi Arabia.
 
+new_data <- dataset %>%
+#  filter(iso_code %in% c("SAU")) %>%
+  filter(iso_code %in% c("SAU", "BRA")) %>%
+new_data
 
+saudi_and_brazil |>
+  select(country=="brazil") |>
+  sqrtIns <- transform(saudi_and_brazil$gas_production, method = "sqrt")
+summary(sqrtIns)
 ```
