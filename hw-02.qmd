@@ -50,12 +50,12 @@ pacman::p_load(dlookr, # Exploratory data analysis
 dataset <- read_csv(here('owid-energy.csv'))
 saudi_and_brazil <- dataset %>%
   filter(iso_code %in% c("SAU", "BRA")) %>%
+  filter(year >= 1960) %>%
   select(country, iso_code, year, gdp, population, gas_production, oil_production)
 #  filter(country %in% c("Brazil", "saudia arabia", "Panama")) %>%
 #  filter(country == "Brazil & Saudia Arabia" & year >= 1950)
 #  filter(iso_code %in% c("SAU")) %>%
 #  filter(iso_code %in% c("BRA")) %>%  
-#  filter(year >= 1950) %>%
 saudi_and_brazil
 
 saudi_and_brazil |> 
@@ -229,6 +229,13 @@ saudi_and_brazil |>
   diagnose() |>
   formattable()
 
+# These are the graphs to show outliers, which helps understand
+# the table below.
+
+saudi_and_brazil |>
+  select(find_outliers(saudi_and_brazil)) |>
+           plot_outlier()
+
 # Table showing outliers
 saudi_and_brazil |>
   diagnose_outlier() |>
@@ -237,4 +244,8 @@ saudi_and_brazil |>
   arrange(desc(rate)) |> 
   select(-outliers_cnt) |>
   formattable()
+
+normal_numbers_oil_production <- exp(saudi_and_brazil$oil_production)
+normal_numbers_oil_production |>
+  plot_normality()
 ```

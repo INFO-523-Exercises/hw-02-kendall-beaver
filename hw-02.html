@@ -1128,6 +1128,142 @@ numeric
 
 </table>
 </div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># These are the graphs to show outliers, which helps understand</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the table below.</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>saudi_and_brazil <span class="sc">|&gt;</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">find_outliers</span>(saudi_and_brazil)) <span class="sc">|&gt;</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>           <span class="fu">plot_outlier</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="hw-02_files/figure-html/unnamed-chunk-1-23.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="hw-02_files/figure-html/unnamed-chunk-1-24.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="hw-02_files/figure-html/unnamed-chunk-1-25.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="hw-02_files/figure-html/unnamed-chunk-1-26.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Table showing outliers</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>saudi_and_brazil <span class="sc">|&gt;</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">diagnose_outlier</span>() <span class="sc">|&gt;</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(outliers_ratio <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">|&gt;</span>  </span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rate =</span> outliers_mean <span class="sc">/</span> with_mean) <span class="sc">|&gt;</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(rate)) <span class="sc">|&gt;</span> </span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>outliers_cnt) <span class="sc">|&gt;</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">formattable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class="table table-condensed">
+<thead>
+<tr>
+<th style="text-align:right;">
+variables
+</th>
+<th style="text-align:right;">
+outliers_ratio
+</th>
+<th style="text-align:right;">
+outliers_mean
+</th>
+<th style="text-align:right;">
+with_mean
+</th>
+<th style="text-align:right;">
+without_mean
+</th>
+<th style="text-align:right;">
+rate
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+gas_production
+</td>
+<td style="text-align:right;">
+17.6
+</td>
+<td style="text-align:right;">
+5.9e+02
+</td>
+<td style="text-align:right;">
+1.2e+02
+</td>
+<td style="text-align:right;">
+2.0e+01
+</td>
+<td style="text-align:right;">
+4.9
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+gdp
+</td>
+<td style="text-align:right;">
+4.9
+</td>
+<td style="text-align:right;">
+2.9e+12
+</td>
+<td style="text-align:right;">
+6.1e+11
+</td>
+<td style="text-align:right;">
+4.6e+11
+</td>
+<td style="text-align:right;">
+4.7
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+oil_production
+</td>
+<td style="text-align:right;">
+17.2
+</td>
+<td style="text-align:right;">
+5.5e+03
+</td>
+<td style="text-align:right;">
+1.3e+03
+</td>
+<td style="text-align:right;">
+4.2e+02
+</td>
+<td style="text-align:right;">
+4.3
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+population
+</td>
+<td style="text-align:right;">
+8.2
+</td>
+<td style="text-align:right;">
+2.0e+08
+</td>
+<td style="text-align:right;">
+5.2e+07
+</td>
+<td style="text-align:right;">
+3.9e+07
+</td>
+<td style="text-align:right;">
+3.8
+</td>
+</tr>
+</tbody>
+
+</table>
+</div>
 </div>
 
 </main>
