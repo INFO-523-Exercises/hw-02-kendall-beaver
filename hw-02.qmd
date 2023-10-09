@@ -71,7 +71,9 @@ saudi_and_brazil |>
   select(described_variables, mean, skewness, n, na) |>
   formattable()
 
-# These plots don't really help me with my EDA.
+# These plots don't really help me with my EDA. The only
+# meaningful plots are for the oil and gas production, but
+# the data is skewed from the linear line in the Q-Q plots.
 
 saudi_and_brazil |>
   plot_normality()
@@ -210,4 +212,29 @@ BoxCox_prod_data |>
 #                            ifelse(gdp > e+11 & Age <= e+12, "Middle class",
 #                            ifelse(gdp >= e+12, "Upper class")),
 #         gdp = fct_rev(gdp))
+
+# This is a great and simply dlookr function to run. It shows these
+# six classes: 
+# variables (names of the columns)
+# types (are the variables charcter or numeric, etc.)
+# missing_count (I think these are the NAs)
+# missing_percent (same as above, but percentage)
+# unique_count
+# unique_rate
+#
+# I can immediately spot that I have missing data
+# for GDP.
+#
+saudi_and_brazil |>
+  diagnose() |>
+  formattable()
+
+# Table showing outliers
+saudi_and_brazil |>
+  diagnose_outlier() |>
+  filter(outliers_ratio > 0) |>  
+  mutate(rate = outliers_mean / with_mean) |>
+  arrange(desc(rate)) |> 
+  select(-outliers_cnt) |>
+  formattable()
 ```
