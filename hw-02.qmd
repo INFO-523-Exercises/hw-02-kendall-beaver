@@ -62,8 +62,13 @@ saudi_and_brazil |>
   head() |>
     formattable()
 
+# The "describe" feature below will summarized all of the
+# columns into quick, summary stats. Very useful, I think.
+
 saudi_and_brazil |>
-  select(country) |>
+  select(oil_production, gas_production, gdp) |>
+  describe() |>
+  select(described_variables, mean, skewness, n, na) |>
   formattable()
 
 saudi_and_brazil |>
@@ -75,7 +80,7 @@ saudi_and_brazil %>%
   plot_normality()
 
 saudi_and_brazil |>
-  select(oil_production, gas_production) |>
+  select(oil_production, gas_production, gdp) |>
   describe() |>
   select(described_variables, mean, IQR, skewness) |>
   formattable()
@@ -193,14 +198,10 @@ BoxCox_prod_data |>
 #   3.) Poor
 
 
-saudi_and_brazil |>
+# saudi_and_brazil |>
   # Add a categorical group. There are 10, 11, 12 0's.
-  mutate(Wealth_of_country = ifelse(gdp >=e+11, "Poor class", 
-                            ifelse(gdp > e+11 & Age <= e+12, "Middle class",
-                            ifelse(gdp >= e+12, "Upper class")),
-         gdp = fct_rev(gdp))
-
-saudi_and_brazil |>
-  head() |>
-  formattable()
+#  mutate(Wealth_of_country = ifelse(gdp >=e+11, "Poor class", 
+#                            ifelse(gdp > e+11 & Age <= e+12, "Middle class",
+#                            ifelse(gdp >= e+12, "Upper class")),
+#         gdp = fct_rev(gdp))
 ```

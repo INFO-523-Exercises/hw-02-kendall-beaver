@@ -102,12 +102,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sets the number of significant figures to two - e.g., 0.01</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Required package for quick package downloading and loading </span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(pacman))  </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">##############################################################</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># PART I: Transforming like a Data... Transformer</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">##############################################################</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">##############################################################</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># If I want to make the oil_production more discrete then I </span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># wonder if there's a way to convert this into barrels of oil...</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="do">##############################################################</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Sets the number of significant figures to two - e.g., 0.01</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Required package for quick package downloading and loading </span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(pacman))  </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: pacman</code></pre>
 </div>
@@ -121,12 +130,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>               missRanger, <span class="co"># To generate NAs</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>               tidyverse) <span class="co"># Powerful data wrangling package suite</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's load a data set from the diabetes data set</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># An easy way</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#dataset &lt;- read.csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-07-25/scurvy.csv')</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">'owid-energy.csv'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="do">########################################################</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Load my data set. </span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># I was originally going to use scurvy but will instead</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># use owid-energy.csv.</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Some contenders: </span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># dataset &lt;- read_csv(here('daily_summary.csv'))</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co"># dataset &lt;- read_csv(here('population.csv'))</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co"># source: https://github.com/rfordatascience/tidytuesday/tree/master/data/2023/2023-08-22</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="do">########################################################</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">'owid-energy.csv'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 21891 Columns: 129</code></pre>
 </div>
@@ -139,22 +157,15 @@ dbl (127): year, population, gdp, biofuel_cons_change_pct, biofuel_cons_chan...
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dataset</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#brazil_dataset &lt;- dataset %&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(country == "Brazil")</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#brazil_dataset</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>saudi_and_brazil <span class="ot">&lt;-</span> dataset <span class="sc">%&gt;%</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(country %in% c("Brazil", "saudia arabia", "Panama")) %&gt;%</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(country == "Brazil &amp; Saudia Arabia" &amp; year &gt;= 1950)</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(iso_code %in% c("SAU")) %&gt;%</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(iso_code %in% c("BRA")) %&gt;%  </span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(iso_code <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"SAU"</span>, <span class="st">"BRA"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(year &gt;= 1950) %&gt;%</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, iso_code, year, gdp, population, gas_production, oil_production)</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>saudi_and_brazil</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>saudi_and_brazil <span class="ot">&lt;-</span> dataset <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(iso_code <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"SAU"</span>, <span class="st">"BRA"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, iso_code, year, gdp, population, gas_production, oil_production)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(country %in% c("Brazil", "saudia arabia", "Panama")) %&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(country == "Brazil &amp; Saudia Arabia" &amp; year &gt;= 1950)</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(iso_code %in% c("SAU")) %&gt;%</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(iso_code %in% c("BRA")) %&gt;%  </span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(year &gt;= 1950) %&gt;%</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>saudi_and_brazil</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 244 × 7
    country iso_code  year         gdp population gas_production oil_production
@@ -171,16 +182,9 @@ dbl (127): year, population, gdp, biofuel_cons_change_pct, biofuel_cons_chan...
 10 Brazil  BRA       1909 21732245504   21899583              0              0
 # ℹ 234 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Other datasets I considered performing EDA on:</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># dataset &lt;- read_csv(here('daily_summary.csv'))</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># dataset &lt;- read_csv(here('population.csv'))</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># source for all csv data: https://github.com/rfordatascience/tidytuesday/tree/master/data/2023/2023-08-22 </span><span class="al">###</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>saudi_and_brazil <span class="sc">|&gt;</span> </span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>() <span class="sc">|&gt;</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">formattable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>saudi_and_brazil <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>() <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">formattable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="table table-condensed">
@@ -1756,279 +1760,308 @@ gas_production
 <span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="co"># I'm re-adding the function for saudi_and_brazil so that I can toggle</span></span>
 <span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co"># between displaying data for SAU and BRA.</span></span>
 <span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>saudi_and_brazil <span class="ot">&lt;-</span> dataset <span class="sc">%&gt;%</span></span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(iso_code <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"SAU"</span>))</span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>saudi_and_brazil</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>saudi_and_brazil <span class="sc">%&gt;%</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(iso_code <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"SAU"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 122 × 129
-   country       year iso_code population   gdp biofuel_cons_change_pct
-   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;                   &lt;dbl&gt;
- 1 Saudi Arabia  1900 SAU         2138769    NA                      NA
- 2 Saudi Arabia  1901 SAU         2142066    NA                      NA
- 3 Saudi Arabia  1902 SAU         2147298    NA                      NA
- 4 Saudi Arabia  1903 SAU         2154462    NA                      NA
- 5 Saudi Arabia  1904 SAU         2161623    NA                      NA
- 6 Saudi Arabia  1905 SAU         2168782    NA                      NA
- 7 Saudi Arabia  1906 SAU         2175938    NA                      NA
- 8 Saudi Arabia  1907 SAU         2183091    NA                      NA
- 9 Saudi Arabia  1908 SAU         2190240    NA                      NA
-10 Saudi Arabia  1909 SAU         2198435    NA                      NA
-# ℹ 112 more rows
-# ℹ 123 more variables: biofuel_cons_change_twh &lt;dbl&gt;,
-#   biofuel_cons_per_capita &lt;dbl&gt;, biofuel_consumption &lt;dbl&gt;,
-#   biofuel_elec_per_capita &lt;dbl&gt;, biofuel_electricity &lt;dbl&gt;,
-#   biofuel_share_elec &lt;dbl&gt;, biofuel_share_energy &lt;dbl&gt;,
-#   carbon_intensity_elec &lt;dbl&gt;, coal_cons_change_pct &lt;dbl&gt;,
-#   coal_cons_change_twh &lt;dbl&gt;, coal_cons_per_capita &lt;dbl&gt;, …</code></pre>
+<pre><code># A tibble: 122 × 7
+   country      iso_code  year   gdp population gas_production oil_production
+   &lt;chr&gt;        &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;
+ 1 Saudi Arabia SAU       1900    NA    2138769              0              0
+ 2 Saudi Arabia SAU       1901    NA    2142066              0              0
+ 3 Saudi Arabia SAU       1902    NA    2147298              0              0
+ 4 Saudi Arabia SAU       1903    NA    2154462              0              0
+ 5 Saudi Arabia SAU       1904    NA    2161623              0              0
+ 6 Saudi Arabia SAU       1905    NA    2168782              0              0
+ 7 Saudi Arabia SAU       1906    NA    2175938              0              0
+ 8 Saudi Arabia SAU       1907    NA    2183091              0              0
+ 9 Saudi Arabia SAU       1908    NA    2190240              0              0
+10 Saudi Arabia SAU       1909    NA    2198435              0              0
+# ℹ 112 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>sqrt_prod_data <span class="ot">&lt;-</span> </span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transform</span>(saudi_and_brazil<span class="sc">$</span>oil_production, <span class="at">method =</span> <span class="st">"sqrt"</span>)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># sqrtIns &lt;- transform(saudi_and_brazil$gas_production, method = "sqrt")</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sqrt_prod_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>saudi_and_brazil</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 244 × 7
+   country iso_code  year         gdp population gas_production oil_production
+   &lt;chr&gt;   &lt;chr&gt;    &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;
+ 1 Brazil  BRA       1900 15718016000   18063384              0              0
+ 2 Brazil  BRA       1901 17288480768   18469004              0              0
+ 3 Brazil  BRA       1902 17298221056   18874521              0              0
+ 4 Brazil  BRA       1903 17645600768   19279718              0              0
+ 5 Brazil  BRA       1904 17980866560   19693613              0              0
+ 6 Brazil  BRA       1905 18502774784   20116394              0              0
+ 7 Brazil  BRA       1906 20284010496   20548251              0              0
+ 8 Brazil  BRA       1907 20275920896   20989379              0              0
+ 9 Brazil  BRA       1908 20131334144   21439977              0              0
+10 Brazil  BRA       1909 21732245504   21899583              0              0
+# ℹ 234 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>sqrt_prod_data <span class="ot">&lt;-</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transform</span>(saudi_and_brazil<span class="sc">$</span>oil_production, <span class="at">method =</span> <span class="st">"sqrt"</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># sqrtIns &lt;- transform(saudi_and_brazil$gas_production, method = "sqrt")</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sqrt_prod_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>* Resolving Skewness with sqrt
 
 * Information of Transformation (before vs after)
          Original Transformation
-n         122.000         122.00
-na          0.000           0.00
-mean     2265.775          35.11
-sd       2496.068          32.28
-se_mean   225.983           2.92
-IQR      5010.889          70.79
-skewness    0.522           0.16
-kurtosis   -1.458          -1.70
-p00         0.000           0.00
-p01         0.000           0.00
-p05         0.000           0.00
-p10         0.000           0.00
-p20         0.000           0.00
-p25         0.000           0.00
-p30         0.044           0.20
-p40       241.234          15.51
-p50       802.243          28.31
-p60      2522.144          50.22
-p70      4686.705          68.46
-p75      5010.889          70.79
-p80      5133.081          71.65
-p90      5930.801          77.01
-p95      6321.522          79.51
-p99      6686.937          81.77
-p100     6823.463          82.60</code></pre>
+n          244.00         244.00
+na           0.00           0.00
+mean      1287.90          23.19
+sd        2046.85          27.44
+se_mean    131.04           1.76
+IQR       1550.53          39.38
+skewness     1.51           0.93
+kurtosis     0.73          -0.58
+p00          0.00           0.00
+p01          0.00           0.00
+p05          0.00           0.00
+p10          0.00           0.00
+p20          0.00           0.00
+p25          0.00           0.00
+p30          0.00           0.00
+p40          6.93           2.63
+p50        105.97          10.29
+p60        429.68          20.73
+p70       1094.25          33.08
+p75       1550.53          39.38
+p80       2509.52          50.09
+p90       5128.94          71.62
+p95       5930.70          77.01
+p99       6562.66          81.01
+p100      6823.46          82.60</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>sqrt_prod_data <span class="sc">|&gt;</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>sqrt_prod_data <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="hw-02_files/figure-html/unnamed-chunk-1-14.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>Log1_prod_data <span class="ot">&lt;-</span> </span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transform</span>(saudi_and_brazil<span class="sc">$</span>oil_production, <span class="at">method =</span> <span class="st">"log+1"</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Log1_prod_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>Log1_prod_data <span class="ot">&lt;-</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transform</span>(saudi_and_brazil<span class="sc">$</span>oil_production, <span class="at">method =</span> <span class="st">"log+1"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Log1_prod_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>* Resolving Skewness with log+1
 
 * Information of Transformation (before vs after)
          Original Transformation
-n         122.000        122.000
-na          0.000          0.000
-mean     2265.775          5.013
-sd       2496.068          3.759
-se_mean   225.983          0.340
-IQR      5010.889          8.520
-skewness    0.522         -0.427
-kurtosis   -1.458         -1.654
-p00         0.000          0.000
-p01         0.000          0.000
-p05         0.000          0.000
-p10         0.000          0.000
-p20         0.000          0.000
-p25         0.000          0.000
-p30         0.044          0.043
-p40       241.234          5.485
-p50       802.243          6.687
-p60      2522.144          7.833
-p70      4686.705          8.452
-p75      5010.889          8.520
-p80      5133.081          8.544
-p90      5930.801          8.688
-p95      6321.522          8.752
-p99      6686.937          8.808
-p100     6823.463          8.828</code></pre>
+n          244.00        244.000
+na           0.00          0.000
+mean      1287.90          4.064
+sd        2046.85          3.507
+se_mean    131.04          0.225
+IQR       1550.53          7.347
+skewness     1.51         -0.045
+kurtosis     0.73         -1.693
+p00          0.00          0.000
+p01          0.00          0.000
+p05          0.00          0.000
+p10          0.00          0.000
+p20          0.00          0.000
+p25          0.00          0.000
+p30          0.00          0.000
+p40          6.93          2.071
+p50        105.97          4.673
+p60        429.68          6.065
+p70       1094.25          6.999
+p75       1550.53          7.347
+p80       2509.52          7.828
+p90       5128.94          8.543
+p95       5930.70          8.688
+p99       6562.66          8.789
+p100      6823.46          8.828</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is for “1/x”: inverse transformation. 1/x, the severe skew,</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># which produces values of infinity and therefore doesn't produce</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># a plot for my variable Inv_prod_data.</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>Inv_prod_data <span class="ot">&lt;-</span> </span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transform</span>(saudi_and_brazil<span class="sc">$</span>oil_production, <span class="at">method =</span> <span class="st">"1/x"</span>)</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Inv_prod_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is for “1/x”: inverse transformation. 1/x, the severe skew,</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># which produces values of infinity and therefore doesn't produce</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># a plot for my variable Inv_prod_data.</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>Inv_prod_data <span class="ot">&lt;-</span> </span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transform</span>(saudi_and_brazil<span class="sc">$</span>oil_production, <span class="at">method =</span> <span class="st">"1/x"</span>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Inv_prod_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>* Resolving Skewness with 1/x
 
 * Information of Transformation (before vs after)
          Original Transformation
-n         122.000        1.2e+02
-na          0.000        0.0e+00
-mean     2265.775            Inf
-sd       2496.068            NaN
-se_mean   225.983            NaN
-IQR      5010.889            Inf
-skewness    0.522            NaN
-kurtosis   -1.458            NaN
-p00         0.000        1.5e-04
-p01         0.000        1.5e-04
-p05         0.000        1.6e-04
-p10         0.000        1.7e-04
-p20         0.000        1.9e-04
-p25         0.000        2.0e-04
-p30         0.044        2.1e-04
-p40       241.234        4.0e-04
-p50       802.243        1.3e-03
-p60      2522.144        4.2e-03
-p70      4686.705        3.4e+01
-p75      5010.889            Inf
-p80      5133.081            Inf
-p90      5930.801            Inf
-p95      6321.522            Inf
-p99      6686.937            Inf
-p100     6823.463            Inf</code></pre>
+n          244.00        2.4e+02
+na           0.00        0.0e+00
+mean      1287.90            Inf
+sd        2046.85            NaN
+se_mean    131.04            NaN
+IQR       1550.53            Inf
+skewness     1.51            NaN
+kurtosis     0.73            NaN
+p00          0.00        1.5e-04
+p01          0.00        1.5e-04
+p05          0.00        1.7e-04
+p10          0.00        1.9e-04
+p20          0.00        4.0e-04
+p25          0.00        6.5e-04
+p30          0.00        9.1e-04
+p40          6.93        2.3e-03
+p50        105.97        9.4e-03
+p60        429.68        1.4e-01
+p70       1094.25            Inf
+p75       1550.53            Inf
+p80       2509.52            Inf
+p90       5128.94            Inf
+p95       5930.70            Inf
+p99       6562.66            Inf
+p100      6823.46            Inf</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>Inv_prod_data <span class="sc">|&gt;</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>Inv_prod_data <span class="sc">|&gt;</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="hw-02_files/figure-html/unnamed-chunk-1-15.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is for “x^2”: squared transformation.</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>Sqrd_prod_data <span class="ot">&lt;-</span> </span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transform</span>(saudi_and_brazil<span class="sc">$</span>oil_production, <span class="at">method =</span> <span class="st">"x^2"</span>) </span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Sqrd_prod_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is for “x^2”: squared transformation.</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>Sqrd_prod_data <span class="ot">&lt;-</span> </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transform</span>(saudi_and_brazil<span class="sc">$</span>oil_production, <span class="at">method =</span> <span class="st">"x^2"</span>) </span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Sqrd_prod_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>* Resolving Skewness with x^2
 
 * Information of Transformation (before vs after)
          Original Transformation
-n         122.000        1.2e+02
-na          0.000        0.0e+00
-mean     2265.775        1.1e+07
-sd       2496.068        1.5e+07
-se_mean   225.983        1.3e+06
-IQR      5010.889        2.5e+07
-skewness    0.522        9.1e-01
-kurtosis   -1.458       -7.4e-01
-p00         0.000        0.0e+00
-p01         0.000        0.0e+00
-p05         0.000        0.0e+00
-p10         0.000        0.0e+00
-p20         0.000        0.0e+00
-p25         0.000        0.0e+00
-p30         0.044        3.0e-03
-p40       241.234        5.9e+04
-p50       802.243        6.5e+05
-p60      2522.144        6.4e+06
-p70      4686.705        2.2e+07
-p75      5010.889        2.5e+07
-p80      5133.081        2.6e+07
-p90      5930.801        3.5e+07
-p95      6321.522        4.0e+07
-p99      6686.937        4.5e+07
-p100     6823.463        4.7e+07</code></pre>
+n          244.00        2.4e+02
+na           0.00        0.0e+00
+mean      1287.90        5.8e+06
+sd        2046.85        1.2e+07
+se_mean    131.04        7.6e+05
+IQR       1550.53        2.4e+06
+skewness     1.51        2.0e+00
+kurtosis     0.73        2.5e+00
+p00          0.00        0.0e+00
+p01          0.00        0.0e+00
+p05          0.00        0.0e+00
+p10          0.00        0.0e+00
+p20          0.00        0.0e+00
+p25          0.00        0.0e+00
+p30          0.00        0.0e+00
+p40          6.93        4.8e+01
+p50        105.97        1.1e+04
+p60        429.68        1.8e+05
+p70       1094.25        1.2e+06
+p75       1550.53        2.4e+06
+p80       2509.52        6.3e+06
+p90       5128.94        2.6e+07
+p95       5930.70        3.5e+07
+p99       6562.66        4.3e+07
+p100      6823.46        4.7e+07</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>Sqrd_prod_data <span class="sc">|&gt;</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>Sqrd_prod_data <span class="sc">|&gt;</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="hw-02_files/figure-html/unnamed-chunk-1-16.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is for "x^3": cubed transformation.</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>Cube_prod_data <span class="ot">&lt;-</span> </span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transform</span>(saudi_and_brazil<span class="sc">$</span>oil_production, <span class="at">method =</span> <span class="st">"x^3"</span>) </span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Cube_prod_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is for "x^3": cubed transformation.</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>Cube_prod_data <span class="ot">&lt;-</span> </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transform</span>(saudi_and_brazil<span class="sc">$</span>oil_production, <span class="at">method =</span> <span class="st">"x^3"</span>) </span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Cube_prod_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>* Resolving Skewness with x^3
 
 * Information of Transformation (before vs after)
          Original Transformation
-n         122.000        1.2e+02
-na          0.000        0.0e+00
-mean     2265.775        6.2e+10
-sd       2496.068        9.0e+10
-se_mean   225.983        8.1e+09
-IQR      5010.889        1.3e+11
-skewness    0.522        1.2e+00
-kurtosis   -1.458        2.2e-01
-p00         0.000        0.0e+00
-p01         0.000        0.0e+00
-p05         0.000        0.0e+00
-p10         0.000        0.0e+00
-p20         0.000        0.0e+00
-p25         0.000        0.0e+00
-p30         0.044        2.5e-04
-p40       241.234        1.4e+07
-p50       802.243        5.2e+08
-p60      2522.144        1.6e+10
-p70      4686.705        1.0e+11
-p75      5010.889        1.3e+11
-p80      5133.081        1.4e+11
-p90      5930.801        2.1e+11
-p95      6321.522        2.5e+11
-p99      6686.937        3.0e+11
-p100     6823.463        3.2e+11</code></pre>
+n          244.00        2.4e+02
+na           0.00        0.0e+00
+mean      1287.90        3.1e+10
+sd        2046.85        7.1e+10
+se_mean    131.04        4.5e+09
+IQR       1550.53        3.7e+09
+skewness     1.51        2.3e+00
+kurtosis     0.73        4.4e+00
+p00          0.00        0.0e+00
+p01          0.00        0.0e+00
+p05          0.00        0.0e+00
+p10          0.00        0.0e+00
+p20          0.00        0.0e+00
+p25          0.00        0.0e+00
+p30          0.00        0.0e+00
+p40          6.93        3.3e+02
+p50        105.97        1.2e+06
+p60        429.68        7.9e+07
+p70       1094.25        1.3e+09
+p75       1550.53        3.7e+09
+p80       2509.52        1.6e+10
+p90       5128.94        1.3e+11
+p95       5930.70        2.1e+11
+p99       6562.66        2.8e+11
+p100      6823.46        3.2e+11</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>Cube_prod_data <span class="sc">|&gt;</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>Cube_prod_data <span class="sc">|&gt;</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="hw-02_files/figure-html/unnamed-chunk-1-17.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is for the Box-Cox transformation:</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>BoxCox_prod_data <span class="ot">&lt;-</span> </span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transform</span>(saudi_and_brazil<span class="sc">$</span>oil_production, <span class="at">method =</span> <span class="st">"Box-Cox"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is for the Box-Cox transformation:</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>BoxCox_prod_data <span class="ot">&lt;-</span> </span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transform</span>(saudi_and_brazil<span class="sc">$</span>oil_production, <span class="at">method =</span> <span class="st">"Box-Cox"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in guerrero(x, lower, upper): Guerrero's method for selecting a Box-Cox
 parameter (lambda) is given for strictly positive data.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(BoxCox_prod_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(BoxCox_prod_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>* Resolving Skewness with Box-Cox
 
 * Information of Transformation (before vs after)
          Original Transformation
-n         122.000         122.00
-na          0.000           0.00
-mean     2265.775          17.65
-sd       2496.068          17.09
-se_mean   225.983           1.55
-IQR      5010.889          38.97
-skewness    0.522          -0.15
-kurtosis   -1.458          -1.70
-p00         0.000          -3.56
-p01         0.000          -3.56
-p05         0.000          -3.56
-p10         0.000          -3.56
-p20         0.000          -3.56
-p25         0.000          -3.56
-p30         0.044          -2.15
-p40       241.234          13.05
-p50       802.243          19.72
-p60      2522.144          28.57
-p70      4686.705          34.68
-p75      5010.889          35.41
-p80      5133.081          35.67
-p90      5930.801          37.30
-p95      6321.522          38.04
-p99      6686.937          38.70
-p100     6823.463          38.94</code></pre>
+n          244.00         244.00
+na           0.00           0.00
+mean      1287.90           9.13
+sd        2046.85          12.07
+se_mean    131.04           0.77
+IQR       1550.53          23.68
+skewness     1.51           0.24
+kurtosis     0.73          -1.43
+p00          0.00          -4.31
+p01          0.00          -4.31
+p05          0.00          -4.31
+p10          0.00          -4.31
+p20          0.00          -4.31
+p25          0.00          -4.31
+p30          0.00          -4.31
+p40          6.93           2.44
+p50        105.97           8.40
+p60        429.68          13.27
+p70       1094.25          17.53
+p75       1550.53          19.37
+p80       2509.52          22.16
+p90       5128.94          26.94
+p95       5930.70          28.01
+p99       6562.66          28.77
+p100      6823.46          29.07</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>BoxCox_prod_data <span class="sc">|&gt;</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>BoxCox_prod_data <span class="sc">|&gt;</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="hw-02_files/figure-html/unnamed-chunk-1-18.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This function/code doesn't work so I'm not going to hide it:</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co"># transformation_web_report(saudi_and_brazil)</span></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co"># transformation_web_report(dataset)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This function/code doesn't work so I'm going to hide it:</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="co"># transformation_web_report(saudi_and_brazil)</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co"># transformation_web_report(dataset)</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="do">##############################################################</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="co"># PART II: Imputing like a Data Scientist</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="do">##############################################################</span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="co"># I could create a categorical group based on the data in the</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="co"># GDP or population column, something along the lines of:</span></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   1.) Very Wealthy</span></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a><span class="co">#   2.) Middle-class</span></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a><span class="co">#   3.) Poor</span></span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a><span class="co"># saudi_and_brazil |&gt;</span></span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add a categorical group. There are 10, 11, 12 0's.</span></span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a><span class="co">#  mutate(Wealth_of_country = ifelse(gdp &gt;=e+11, "Poor class", </span></span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a><span class="co">#                            ifelse(gdp &gt; e+11 &amp; Age &lt;= e+12, "Middle class",</span></span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a><span class="co">#                            ifelse(gdp &gt;= e+12, "Upper class")),</span></span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a><span class="co">#         gdp = fct_rev(gdp))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 </main>
