@@ -71,21 +71,27 @@ saudi_and_brazil |>
   select(described_variables, mean, skewness, n, na) |>
   formattable()
 
+# These plots don't really help me with my EDA.
+
 saudi_and_brazil |>
   plot_normality()
 
+# This "group_by" feature works great for my data.
+
 saudi_and_brazil %>%
   group_by(country) %>%
-  select(population) %>%
+  select(oil_production, gas_production, gdp) %>%
   plot_normality()
+
+# Gas production is skewed more to the right (1.78) 
+# than oil production (0.75).
 
 saudi_and_brazil |>
   select(oil_production, gas_production, gdp) |>
   describe() |>
   select(described_variables, mean, IQR, skewness) |>
   formattable()
-# Gas production is skewed more to the right (1.78) 
-# than oil production (0.75).
+
 
 saudi_and_brazil |>
 plot_normality(oil_production, gas_production)
