@@ -50,7 +50,7 @@ pacman::p_load(dlookr, # Exploratory data analysis
 dataset <- read_csv(here('owid-energy.csv'))
 saudi_and_brazil <- dataset %>%
   filter(iso_code %in% c("SAU", "BRA")) %>%
-  filter(year >= 1960) %>%
+  filter(year >= 1970) %>%
   select(country, iso_code, year, gdp, population, gas_production, oil_production)
 #  filter(country %in% c("Brazil", "saudia arabia", "Panama")) %>%
 #  filter(country == "Brazil & Saudia Arabia" & year >= 1950)
@@ -189,10 +189,11 @@ summary(BoxCox_prod_data)
 BoxCox_prod_data |>
   plot()
 
-# This function/code doesn't work so I'm going to hide it:
+# I couldn't get the below function to work for a long time but
+# it's now working, and it's a great and beautiful feature to
+# use.
 #
-# transformation_web_report(saudi_and_brazil)
-# transformation_web_report(dataset)
+transformation_web_report(saudi_and_brazil)
 
 ##############################################################
 # PART II: Imputing like a Data Scientist
@@ -245,7 +246,5 @@ saudi_and_brazil |>
   select(-outliers_cnt) |>
   formattable()
 
-normal_numbers_oil_production <- exp(saudi_and_brazil$oil_production)
-normal_numbers_oil_production |>
-  plot_normality()
+
 ```
