@@ -33,35 +33,30 @@ pacman::p_load(dlookr, # Exploratory data analysis
                missRanger, # To generate NAs
                tidyverse) # Powerful data wrangling package suite
 
-# Let's load a data set from the diabetes data set
-# An easy way
-
-#dataset <- read.csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-07-25/scurvy.csv')
-
-dataset <- read_csv(here('owid-energy.csv'))
-#dataset
-#brazil_dataset <- dataset %>%
-#  filter(country == "Brazil")
-
-#brazil_dataset
-
-saudi_and_brazil <- dataset %>%
-#  filter(country %in% c("Brazil", "saudia arabia", "Panama")) %>%
-#  filter(country == "Brazil & Saudia Arabia" & year >= 1950)
-#  filter(iso_code %in% c("SAU")) %>%
-#  filter(iso_code %in% c("BRA")) %>%  
-  filter(iso_code %in% c("SAU", "BRA")) %>%
-#  filter(year >= 1950) %>%
-  select(country, iso_code, year, gdp, population, gas_production, oil_production)
-  
-saudi_and_brazil
-
-# Other datasets I considered performing EDA on:
+########################################################
+# Load my data set. 
+#
+# I was originally going to use scurvy but will instead
+# use owid-energy.csv.
+#
+# Some contenders: 
 #
 # dataset <- read_csv(here('daily_summary.csv'))
 # dataset <- read_csv(here('population.csv'))
 #
-# source for all csv data: https://github.com/rfordatascience/tidytuesday/tree/master/data/2023/2023-08-22 ###
+# source: https://github.com/rfordatascience/tidytuesday/tree/master/data/2023/2023-08-22
+########################################################
+
+dataset <- read_csv(here('owid-energy.csv'))
+saudi_and_brazil <- dataset %>%
+  filter(iso_code %in% c("SAU", "BRA")) %>%
+  select(country, iso_code, year, gdp, population, gas_production, oil_production)
+#  filter(country %in% c("Brazil", "saudia arabia", "Panama")) %>%
+#  filter(country == "Brazil & Saudia Arabia" & year >= 1950)
+#  filter(iso_code %in% c("SAU")) %>%
+#  filter(iso_code %in% c("BRA")) %>%  
+#  filter(year >= 1950) %>%
+saudi_and_brazil
 
 saudi_and_brazil |> 
   head() |>
@@ -127,7 +122,7 @@ filtered_column
 # I'm re-adding the function for saudi_and_brazil so that I can toggle
 # between displaying data for SAU and BRA.
 
-saudi_and_brazil <- dataset %>%
+saudi_and_brazil %>%
   filter(iso_code %in% c("SAU"))
 saudi_and_brazil
 
@@ -181,7 +176,7 @@ summary(BoxCox_prod_data)
 BoxCox_prod_data |>
   plot()
 
-# This function/code doesn't work so I'm not going to hide it:
+# This function/code doesn't work so I'm going to hide it:
 #
 # transformation_web_report(saudi_and_brazil)
 # transformation_web_report(dataset)
@@ -199,13 +194,13 @@ BoxCox_prod_data |>
 
 
 saudi_and_brazil |>
-  # Add a categorical group
-  mutate(Wealth_of_country = ifelse(Age >= 21 & Age <= 30, "Young", 
-                            ifelse(Age > 30 & Age <= 50, "Middle", 
-                                   "Elderly")),
-         Age_group = fct_rev(Age_group))
+  # Add a categorical group. There are 10, 11, 12 0's.
+  mutate(Wealth_of_country = ifelse(gdp >=e+11, "Poor class", 
+                            ifelse(gdp > e+11 & Age <= e+12, "Middle class",
+                            ifelse(gdp >= e+12, "Upper class")),
+         gdp = fct_rev(gdp))
 
-dataset |>
+saudi_and_brazil |>
   head() |>
   formattable()
 ```
